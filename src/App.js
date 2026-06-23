@@ -4,6 +4,7 @@ import { Home } from './components/Home'
 import { Department } from './components/Department';
 import { Employee } from './components/Employee';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { NavBar } from './components/NavBar';
 
 function App() {
   const handleClick = () => {
@@ -12,6 +13,13 @@ function App() {
   return (
     <BrowserRouter>
       <div className="container">
+        <h3 classname="m-3 d-flex justify-content-center">
+          React JS with Web API Demo
+        </h3>
+        <h5 classname="m-3 d-flex justify-content-center">
+          Employee Management Portal
+        </h5>
+        <NavBar/>
         <Routes>
           <Route path='/' Component={Home} exact/>
           <Route path='/department' Component={Department} exact/>
