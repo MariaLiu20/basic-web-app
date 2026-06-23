@@ -1,11 +1,15 @@
-import {Table} from 'react-bootstrap';
-import { useState } from 'react';
+import { Table } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 
 export const Department = () => {
     const [deps, setDeps] = useState([{DepartmentID: 1, DepartmentName: "IT"},
-            {DepartmentID: 2, DepartmentName: "HR"},
-            {DepartmentID: 3, DepartmentName: "Payroll"},
-            {DepartmentID: 4, DepartmentName: "Admin"}]);
+            {DepartmentID: 2, DepartmentName: "HR"}]);
+    
+    useEffect(() => {
+        fetch('https://localhost:7067/api/Department')
+        .then(response => response.json())
+        .then(data => setDeps(data));
+    }, []);
 
     return (
         <div className="mt-5 d-flex justify-content-left">
@@ -19,8 +23,8 @@ export const Department = () => {
                 </thead>
                 <tbody>
                     {deps.map(dep =>
-                        <tr key={dep.DepartmentID}>
-                            <td>{dep.DepartmentID}</td>
+                        <tr key={dep.DepartmentId}>
+                            <td>{dep.DepartmentId}</td>
                             <td>{dep.DepartmentName}</td>
                         </tr>)}
                 </tbody>

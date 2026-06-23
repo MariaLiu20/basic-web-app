@@ -13,10 +13,10 @@ function App() {
   return (
     <BrowserRouter>
       <div className="container">
-        <h3 classname="m-3 d-flex justify-content-center">
+        <h3 className="m-3 d-flex justify-content-center">
           React JS with Web API Demo
         </h3>
-        <h5 classname="m-3 d-flex justify-content-center">
+        <h5 className="m-3 d-flex justify-content-center">
           Employee Management Portal
         </h5>
         <NavBar/>
