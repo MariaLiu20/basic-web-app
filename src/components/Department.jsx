@@ -9,18 +9,17 @@ export const Department = () => {
   ]);
   const [showAddDepModal, setShowAddDepModal] = useState(false);
 
+  const fetchDepartments = async () => {
+    const response = await fetch("https://localhost:7067/api/Department");
+    const data = await response.json();
+    setDeps(data);
+  };
+  // Fetch on initial load
   useEffect(() => {
-    const fetchDepartments = async () => {
-      const response = await fetch("https://localhost:7067/api/Department");
-      const data = await response.json();
-      setDeps(data);
-    };
-
     fetchDepartments();
   }, []);
 
   const handleClick = () => {
-    console.log("Add Department button clicked");
     setShowAddDepModal(true);
   };
 
@@ -49,6 +48,7 @@ export const Department = () => {
       <AddDepModal
         show={showAddDepModal}
         onHide={() => setShowAddDepModal(false)}
+        onAdded={fetchDepartments}
       />
     </>
   );

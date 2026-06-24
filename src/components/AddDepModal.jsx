@@ -3,17 +3,17 @@ import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 
-export const AddDepModal = ({ show, onHide }) => {
+export const AddDepModal = ({ show, onHide, onAdded }) => {
   const [snackbar, setSnackbar] = useState({ open: false, message: "" });
 
   const handleCloseSnackbar = () => {
     setSnackbar({ open: false, message: "" });
   };
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     const departmentName = event.target.DepartmentName.value;
     try {
-      fetch("https://localhost:7067/api/Department", {
+      const response = await fetch("https://localhost:7067/api/Department", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -23,11 +23,16 @@ export const AddDepModal = ({ show, onHide }) => {
           DepartmentName: departmentName,
         }),
       });
-      setSnackbar({ open: true, message: "Department added successfully" });
+      if (response.ok) {
+        setSnackbar({ open: true, message: "Department added successfully" });
+        onAdded();
+      }
     } catch (error) {
       console.error("Error:", error);
       setSnackbar({ open: true, message: "Error adding department" });
       return;
+    } finally {
+      onHide();
     }
   };
   return (
