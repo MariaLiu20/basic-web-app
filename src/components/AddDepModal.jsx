@@ -4,6 +4,16 @@ export const AddDepModal = ({ show, onHide }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     const departmentName = event.target.DepartmentName.value;
+    fetch("https://localhost:7067/api/Department", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        DepartmentName: departmentName,
+      }),
+    });
     console.log("Department Name:", departmentName);
   };
 
