@@ -10,9 +10,13 @@ export const Department = () => {
   const [showAddDepModal, setShowAddDepModal] = useState(false);
 
   useEffect(() => {
-    fetch("https://localhost:7067/api/Department")
-      .then((response) => response.json())
-      .then((data) => setDeps(data));
+    const fetchDepartments = async () => {
+      const response = await fetch("https://localhost:7067/api/Department");
+      const data = await response.json();
+      setDeps(data);
+    };
+
+    fetchDepartments();
   }, []);
 
   const handleClick = () => {

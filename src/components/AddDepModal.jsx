@@ -1,19 +1,28 @@
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 
 export const AddDepModal = ({ show, onHide }) => {
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     const departmentName = event.target.DepartmentName.value;
-    fetch("https://localhost:7067/api/Department", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        DepartmentName: departmentName,
-      }),
-    });
+
+    try {
+      const response = fetch("https://localhost:7067/api/Department", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          DepartmentName: departmentName,
+        }),
+      });
+      console.log("Response:", response);
+      const data = await response.json();
+      console.log("Data:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
     console.log("Department Name:", departmentName);
   };
 
