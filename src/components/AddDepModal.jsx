@@ -1,12 +1,19 @@
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
+import { useState } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
 
 export const AddDepModal = ({ show, onHide }) => {
-  const onSubmit = async (event) => {
+  const [snackbar, setSnackbar] = useState({ open: false, message: "" });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: "" });
+  };
+  const onSubmit = (event) => {
     event.preventDefault();
     const departmentName = event.target.DepartmentName.value;
-
     try {
-      const response = fetch("https://localhost:7067/api/Department", {
+      fetch("https://localhost:7067/api/Department", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -16,46 +23,61 @@ export const AddDepModal = ({ show, onHide }) => {
           DepartmentName: departmentName,
         }),
       });
-      console.log("Response:", response);
-      const data = await response.json();
-      console.log("Data:", data);
+      setSnackbar({ open: true, message: "Department added successfully" });
     } catch (error) {
       console.error("Error:", error);
+      setSnackbar({ open: true, message: "Error adding department" });
+      return;
     }
-
-    console.log("Department Name:", departmentName);
   };
-
   return (
-    <Modal show={show} onHide={onHide}>
-      <Form onSubmit={onSubmit}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add Department</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Row>
-            <Col sm={6}>
-              <Form.Group controlId="DepartmentName">
-                <Form.Label>Department Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="DepartmentName"
-                  required
-                  placeholder="Department Name"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" type="submit">
-            Add Department
-          </Button>
-          <Button variant="danger" onClick={onHide}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
+    <>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={snackbar.message}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={handleCloseSnackbar}
+          >
+            x
+          </IconButton>,
+        ]}
+      />
+      <Modal show={show} onHide={onHide}>
+        <Form onSubmit={onSubmit}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Department</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Col sm={6}>
+                <Form.Group controlId="DepartmentName">
+                  <Form.Label>Department Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="DepartmentName"
+                    required
+                    placeholder="Department Name"
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" type="submit">
+              Add Department
+            </Button>
+            <Button variant="danger" onClick={onHide}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </>
   );
 };
