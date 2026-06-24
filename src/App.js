@@ -1,5 +1,4 @@
 import './App.css';
-import Button from 'react-bootstrap/Button'
 import { Home } from './components/Home'
 import { Department } from './components/Department';
 import { Employee } from './components/Employee';
@@ -7,9 +6,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NavBar } from './components/NavBar';
 
 function App() {
-  const handleClick = () => {
-    console.log("clicked");
-  }
   return (
     <BrowserRouter>
       <div className="container">
