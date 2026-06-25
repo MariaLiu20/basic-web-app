@@ -1,8 +1,13 @@
 import { Button, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { AddEmpModal } from "./AddEmpModal";
+import { EditEmpModal } from "./EditEmpModal";
 
 export const Employee = () => {
   const [emps, setEmps] = useState([]);
+  const [selectedEmp, setSelectedEmp] = useState({});
+  const [showEditEmpModal, setShowEditEmpModal] = useState(false);
+  const [showAddEmpModal, setShowAddEmpModal] = useState(false);
 
   const fetchEmployees = async () => {
     const response = await fetch("https://localhost:7067/api/Employee");
@@ -14,14 +19,31 @@ export const Employee = () => {
     fetchEmployees();
   }, []);
 
-  const handleAdd = () => {};
+  const handleAdd = () => {
+    setShowAddEmpModal(true);
+  };
 
   const handleEdit = (emp) => {
     setSelectedEmp(emp);
     setShowEditEmpModal(true);
   };
 
-  const handleDelete = () => {};
+  const handleDelete = (empId) => {
+    // Implementation for deleting an employee
+    if (window.confirm("Are you sure you want to delete this employee?")) {
+      fetch(`https://localhost:7067/api/Employee/${empId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            fetchEmployees();
+          }
+        })
+        .catch((error) => {
+          console.error("Error deleting employee:", error);
+        });
+    }
+  };
 
   return (
     <>
@@ -60,6 +82,20 @@ export const Employee = () => {
           ))}
         </tbody>
       </Table>
+      <EditEmpModal
+        show={showEditEmpModal}
+        onHide={() => setShowEditEmpModal(false)}
+        emp={selectedEmp}
+        onRefresh={fetchEmployees}
+      />
+      <Button variant="primary" onClick={handleAdd}>
+        Add Employee
+      </Button>
+      <AddEmpModal
+        show={showAddEmpModal}
+        onHide={() => setShowAddEmpModal(false)}
+        onRefresh={fetchEmployees}
+      />
     </>
   );
 };
