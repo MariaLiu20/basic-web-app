@@ -71,6 +71,7 @@ export const Department = () => {
               <td>{dep.DepartmentName}</td>
               <td>
                 <Button
+                  className="me-2"
                   variant="primary"
                   onClick={() =>
                     handleEdit(dep.DepartmentId, dep.DepartmentName)
@@ -79,6 +80,7 @@ export const Department = () => {
                   Edit
                 </Button>
                 <Button
+                  className="me-2"
                   variant="danger"
                   onClick={() => handleDelete(dep.DepartmentId)}
                 >

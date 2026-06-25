@@ -68,10 +68,15 @@ export const Employee = () => {
               <td>{emp.MailID}</td>
               <td>{emp.DOJ}</td>
               <td>
-                <Button variant="primary" onClick={() => handleEdit(emp)}>
+                <Button
+                  className="me-2"
+                  variant="primary"
+                  onClick={() => handleEdit(emp)}
+                >
                   Edit
                 </Button>
                 <Button
+                  className="me-2"
                   variant="danger"
                   onClick={() => handleDelete(emp.EmployeeID)}
                 >
