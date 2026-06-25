@@ -1,11 +1,10 @@
 # Employee Management Portal
 
 A simple React web application for managing departments and employees.
-Backend services: https://github.com/MariaLiu20/WebAPI
 
 ## Overview
 
-This app demonstrates a frontend built with React, React Router, and React Bootstrap, connected to a backend Web API for CRUD operations.
+This app demonstrates a frontend built with React, React Router, and React Bootstrap, connected to a [backend Web API](https://github.com/MariaLiu20/WebAPI) for CRUD operations.
 
 ### Features
 
