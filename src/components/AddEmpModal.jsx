@@ -76,6 +76,28 @@ export const AddEmpModal = ({ show, onHide, onRefresh }) => {
                     placeholder="Employee Name"
                   />
                 </Form.Group>
+                <Form.Group controlId="Department">
+                  <Form.Label>Department</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Department"
+                    required
+                    placeholder="Department"
+                  />
+                </Form.Group>
+                <Form.Group controlId="MailID">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="MailID"
+                    required
+                    placeholder="Email"
+                  />
+                </Form.Group>
+                <Form.Group controlId="DOJ">
+                  <Form.Label>Date of Joining</Form.Label>
+                  <Form.Control type="date" name="DOJ" required />
+                </Form.Group>
               </Col>
             </Row>
           </Modal.Body>

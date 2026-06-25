@@ -6,7 +6,14 @@ import IconButton from "@mui/material/IconButton";
 export const EditEmpModal = ({ show, onHide, onRefresh, emp }) => {
   const [snackbar, setSnackbar] = useState({ open: false, message: "" });
 
-  const { EmployeeID, EmployeeName, Department, MailID, DOJ } = emp;
+  const { EmployeeID, EmployeeName, Department, MailID, DOJ } = emp || {};
+  const formattedDOJ = (() => {
+    if (!DOJ) return "";
+    const parsed = new Date(DOJ);
+    return Number.isNaN(parsed.getTime())
+      ? ""
+      : parsed.toISOString().slice(0, 10);
+  })();
 
   const handleCloseSnackbar = () => {
     setSnackbar({ open: false, message: "" });
@@ -90,6 +97,35 @@ export const EditEmpModal = ({ show, onHide, onRefresh, emp }) => {
                     required
                     defaultValue={EmployeeName}
                     placeholder="Employee Name"
+                  />
+                </Form.Group>
+                <Form.Group controlId="Department">
+                  <Form.Label>Department</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Department"
+                    required
+                    defaultValue={Department}
+                    placeholder="Department"
+                  />
+                </Form.Group>
+                <Form.Group controlId="MailID">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="MailID"
+                    required
+                    defaultValue={MailID}
+                    placeholder="Email"
+                  />
+                </Form.Group>
+                <Form.Group controlId="DOJ">
+                  <Form.Label>Date of Joining</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="DOJ"
+                    required
+                    defaultValue={formattedDOJ}
                   />
                 </Form.Group>
               </Col>
